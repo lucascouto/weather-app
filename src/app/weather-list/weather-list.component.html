@@ -1,0 +1,14 @@
+<input [(ngModel)]="city" placeholder="type a city..." />
+<input type="button" (click)="getCities()" value="Search">
+
+<div *ngFor="let city of cities">
+{{ city.name }} {{ city.sys.country }}
+<br>
+{{ city.main.temp }}
+<br>
+{{ city.main.temp_max }}
+<br>
+{{ city.main.temp_min }}
+<br>
+{{ city.weather[0].description }}
+</div>
