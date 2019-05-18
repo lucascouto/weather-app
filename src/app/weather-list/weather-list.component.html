@@ -1,14 +1,48 @@
-<input [(ngModel)]="city" placeholder="type a city..." />
-<input type="button" (click)="getCities()" value="Search">
+<div class="weatherListComponent">
+  <div class="container">
 
-<div *ngFor="let city of cities">
-{{ city.name }} {{ city.sys.country }}
-<br>
-{{ city.main.temp }}
-<br>
-{{ city.main.temp_max }}
-<br>
-{{ city.main.temp_min }}
-<br>
-{{ city.weather[0].description }}
+    <div class="row searchArea">
+      <div class="offset-md-5 mb-3 searchText">WEATHER IN YOUR CITY</div>
+      <input [(ngModel)]="city" placeholder="type a city..." class="form-control col-md-6 offset-md-3 shadow"/>
+      <input type="button" (click)="getCities()" value="Search" class="btn btn-primary">
+    </div>
+    <div class="cards">
+      <div *ngFor="let city of cities"
+      class="card rounded-0 row col-md-8 offset-md-2 mt-5 shadow p-3 border-0"
+      routerLink="/details/{{city.id}}">
+        <div class="card-body pb-0" style="cursor:pointer;">
+          <div class="row">
+            <div class="currentTempBox col-md-4 py-5">
+              <div class="currentTempText">{{ city.main.temp | number: '1.0-1'}} ºC</div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-center">
+                <span class="cityName">{{ city.name }}, {{ city.sys.country }}</span>
+                  <img class="mb-3 ml-2" src="http://openweathermap.org/images/flags/{{city.sys.country | lowercase}}.png" />
+
+                <div class="pl-5">
+                  <span class="float-left text-secondary">Max</span>
+                  <span class="maxTemp">{{ city.main.temp_max | number: '1.0-1' }} ºC</span>
+                  <br>
+                  <span class="float-left text-secondary">Min</span>
+                  <span class="minTemp">{{ city.main.temp_min | number: '1.0-1' }} ºC</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="float-right">
+                <img class="weatherIcon" src="https://openweathermap.org/img/w/{{city.weather[0].icon}}.png" />
+                <span class="weatherDescription text-secondary">{{ city.weather[0].description }}</span>
+              </div>
+            </div>
+            <br>
+          </div>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+

@@ -1,0 +1,63 @@
+<div class="weatherDetailComponent">
+  <div class="container">
+    <div class="row searchArea">
+        <input type="text" [(ngModel)]="cityName" class="form-control col-md-6 offset-md-3 shadow" />
+        <input type="button" routerLink="/search/{{cityName}}" class="btn btn-primary" value="Search"/>
+    </div>
+
+
+   <div class="forecastArea">
+      <span class="forecastTitle offset-md-4">Weather in {{ currentWeatherCity.name }}, {{ currentWeatherCity.sys.country }}</span>
+      <div class="card shadow rounded-0 col-md-8 offset-md-2 mt-5 p-3 border-0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4 offset-md-1 currentTempBox text-center shadow-sm">
+              <div class="currentTemp">
+                {{ currentWeatherCity.main.temp | number: '1.0-1' }} ºC
+              </div>
+              <div class="currentSituation">
+                <img src="https://openweathermap.org/img/w/{{currentWeatherCity.weather[0].icon}}.png" />
+                <br>
+                {{ currentWeatherCity.weather[0].description }}
+
+              </div>
+            </div>
+            <div class="col-md-5 offset-md-1">
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><span class="font-weight-bold">Max</span>
+                    <span class="float-right text-danger font-weight-bold">{{ currentWeatherCity.main.temp_max | number: '1.0-1' }} ºC</span></li>
+                  <li class="list-group-item"><span class="font-weight-bold">Min</span>
+                    <span class="float-right text-primary font-weight-bold">{{ currentWeatherCity.main.temp_min | number: '1.0-1' }} ºC</span></li>
+                  <li class="list-group-item"><span class="font-weight-bold">Sunrise</span>
+                    <span class="float-right">{{ currentWeatherCity.sys.sunrise*1000 | date:'HH:mm' }}</span></li>
+                  <li class="list-group-item"><span class="font-weight-bold">Sunset</span>
+                    <span class="float-right">{{ currentWeatherCity.sys.sunset*1000 | date:'HH:mm' }}</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="forecast">
+            <h2 class="offset-md-1">5 day weather forecast &nbsp;&nbsp;&nbsp;<span class="smallCaption">every 3 hours</span></h2>
+            <div class="row py-3 eachForecast" *ngFor="let forecast of forecastWeatherCity">
+              <div class="col-md-4 text-center">
+                  {{ forecast.dt*1000 | date:'E d LLL' }}
+                  <br>
+                  <span class="smallCaption">{{ forecast.dt*1000 | date:'HH:mm' }}</span>
+              </div>
+              <div class="col-md-4 text-center">
+                  <img src="https://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png" />
+                  <span class="smallCaption ml-3">{{ forecast.weather[0].description }}</span>
+              </div>
+              <div class="col-md-4 text-center">
+                  <span class="text-primary font-weight-bold">{{ forecast.main.temp_min | number: '1.0-1' }} ºC</span>
+                  <span class="ml-4 text-danger font-weight-bold">{{ forecast.main.temp_max | number: '1.0-1' }} ºC</span>
+              </div>
+              <div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
